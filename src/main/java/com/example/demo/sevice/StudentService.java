@@ -1,18 +1,19 @@
-package com.example.demo.service;
+package com.example.demo.sevice;
 
 import com.example.demo.dto.StudentDTO;
 import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class StudentService {
 
-    @Autowired
-    private StudentRepository repository;
+    private final StudentRepository repository;
 
     private StudentDTO toDTO(Student s) {
         StudentDTO dto = new StudentDTO();
@@ -43,9 +44,9 @@ public class StudentService {
     }
 
     public StudentDTO findById(String id) {
-    return repository.findById(id)
-            .map(this::toDTO)
-            .orElseThrow(() -> new RuntimeException("Studente non trovato"));
+        return repository.findById(id)
+                .map(this::toDTO)
+                .orElseThrow(() -> new RuntimeException("Studente non trovato"));
     }
 
     public void delete(String id) {
